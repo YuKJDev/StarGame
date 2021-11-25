@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.utils.Logger;
 
 import ru.gb.yukjdev.math.MatrixUtils;
 import ru.gb.yukjdev.math.Rect;
+import ru.gb.yukjdev.splite.Background;
 
 
 public class BaseScreen implements Screen, InputProcessor {
@@ -25,7 +28,6 @@ public class BaseScreen implements Screen, InputProcessor {
     private Matrix3 screenToWorld;
 
     private Vector2 touch;
-
 
     @Override
     public boolean keyDown(int keycode) {
@@ -118,6 +120,7 @@ public class BaseScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
+
 
     }
 

@@ -36,8 +36,8 @@ public class MenuScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         batch.begin();
+        background.draw(batch);
         batch.draw(img, pos.x, pos.y, 0.2f, 0.2f);
-        //   background.draw(batch);
         batch.end();
         if (touch.dst(pos) <= v.len()) {
             pos.set(touch);

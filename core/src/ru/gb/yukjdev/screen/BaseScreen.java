@@ -1,20 +1,16 @@
-package ru.gb.yukjdev.base;
+package ru.gb.yukjdev.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Logger;
 
 import ru.gb.yukjdev.math.MatrixUtils;
 import ru.gb.yukjdev.math.Rect;
-import ru.gb.yukjdev.splite.Background;
 
 
 public class BaseScreen implements Screen, InputProcessor {

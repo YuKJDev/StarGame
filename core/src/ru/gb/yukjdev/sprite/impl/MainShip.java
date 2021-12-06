@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.yukjdev.math.Rect;
 import ru.gb.yukjdev.pool.impl.BulletPool;
-import ru.gb.yukjdev.sprite.Sprite;
+import ru.gb.yukjdev.sprite.Ship;
 
-public class MainShip extends Sprite {
+public class MainShip extends Ship {
 
     private static final float SHIP_HEIGHT = 0.15f;
     private static final float MARGIN = 0.05f;

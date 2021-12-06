@@ -11,15 +11,17 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.yukjdev.math.Rect;
 import ru.gb.yukjdev.pool.impl.BulletPool;
+import ru.gb.yukjdev.pool.impl.EnemyPool;
 import ru.gb.yukjdev.screen.BaseScreen;
 import ru.gb.yukjdev.sprite.impl.Background;
 import ru.gb.yukjdev.sprite.impl.MainShip;
 import ru.gb.yukjdev.sprite.impl.Star;
+import ru.gb.yukjdev.utils.EnemyEmitter;
 
 
 public class GameScreen extends BaseScreen {
 
-    private static final int STAR_COUNT = 512;
+    private static final int STAR_COUNT = 99;
 
     private TextureAtlas atlas;
     private Texture bg;
@@ -29,11 +31,15 @@ public class GameScreen extends BaseScreen {
 
     private MainShip mainShip;
     private BulletPool bulletPool;
+    private EnemyPool enemyPool;
 
     private Music music;
     private Sound laserSound;
     private Sound shotSound;
+
     private SpriteBatch batch1;
+
+    private EnemyEmitter enemyEmitter;
 
     @Override
     public void show() {
@@ -52,6 +58,8 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         mainShip = new MainShip(atlas, bulletPool, laserSound);
+        enemyEmitter = new EnemyEmitter(atlas, worldBounds, enemyPool);
+        enemyPool = new EnemyPool(bulletPool, shotSound, worldBounds);
         music.play();
         batch1 = new SpriteBatch();
 
@@ -92,8 +100,9 @@ public class GameScreen extends BaseScreen {
             batch.begin();
             mainShip.update(delta);
             bulletPool.updateActiveSprites(delta);
+            enemyPool.updateActiveSprites(delta);
             batch.end();
-
+            enemyEmitter.generate(delta);
 
         }
     }
@@ -114,6 +123,7 @@ public class GameScreen extends BaseScreen {
 //
 //        }
         bulletPool.drawActiveSprites(batch);
+        enemyPool.drawActiveSprites(batch);
         mainShip.draw(batch);
         batch.end();
         batch1.end();
@@ -156,6 +166,8 @@ public class GameScreen extends BaseScreen {
         music.dispose();
         laserSound.dispose();
         shotSound.dispose();
+        bulletPool.dispose();
+        enemyPool.dispose();
 
     }
 

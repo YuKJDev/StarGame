@@ -1,10 +1,13 @@
 package ru.gb.yukjdev.sprite.impl;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.yukjdev.math.Rect;
+import ru.gb.yukjdev.pool.impl.BulletPool;
 import ru.gb.yukjdev.sprite.Sprite;
 
 public class MainShip extends Sprite {
@@ -12,18 +15,29 @@ public class MainShip extends Sprite {
     private static final float SHIP_HEIGHT = 0.15f;
     private static final float MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
-    private final Vector2 v = new Vector2();
-    private final Vector2 v0 = new Vector2(0.5f, 0);
+    private final Vector2 v;
+    private final Vector2 v0;
     private Rect worldBounds;
     private boolean pressedLeft, pressedRight;
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
+    private final BulletPool bulletPool;
+    private final TextureRegion bulletRegion;
+    private final Vector2 bulletV;
+    private final float bulletHeight;
+    private final int damage;
 
-    public MainShip(TextureAtlas atlas) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound shotSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
+        this.v = new Vector2();
+        this.v0 = new Vector2(0.5f, 0f);
+        this.bulletPool = bulletPool;
+        this.bulletRegion = atlas.findRegion("bulletMainShip");
+        this.bulletV = new Vector2(0, 0.5f);
+        this.bulletHeight = 0.01f;
+        this.damage = 1;
 
     }
-
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;

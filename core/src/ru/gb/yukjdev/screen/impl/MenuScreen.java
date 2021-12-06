@@ -21,7 +21,6 @@ public class MenuScreen extends BaseScreen {
     private Texture img;
 
     private static final float V_LEN = 0.5f;
-    private static final int STAR_COUNT = 256;
 
     private final Game game;
 
@@ -39,15 +38,9 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        bg = new Texture("textures/bg.png");
+        bg = new Texture("textures/start_bg.png");
         background = new Background(bg);
-
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
-
-        stars = new Star[STAR_COUNT];
-        for (int i = 0; i < stars.length; i++) {
-            stars[i] = new Star(atlas);
-        }
         buttonExit = new ButtonExit(atlas);
         buttonPlay = new ButtonPlay(atlas, game);
     }
@@ -56,9 +49,6 @@ public class MenuScreen extends BaseScreen {
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        for (Star star : stars) {
-            star.resize(worldBounds);
-        }
         buttonExit.resize(worldBounds);
         buttonPlay.resize(worldBounds);
     }
@@ -92,20 +82,18 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void update(float delta) {
-        for (Star star : stars) {
-            star.update(delta);
-        }
+
     }
 
     private void draw() {
         batch.begin();
 //        batch.setColor(1f, 1f, 1f, 1f);
         background.draw(batch);
-        for (Star star : stars) {
-//            batch.setColor(Color.YELLOW);
-            star.draw(batch);
-//            batch.setColor(Color.CLEAR);
-        }
+//        for (Star star : stars) {
+////            batch.setColor(Color.YELLOW);
+//            star.draw(batch);
+////            batch.setColor(Color.CLEAR);
+//        }
         buttonExit.draw(batch);
         buttonPlay.draw(batch);
         batch.end();

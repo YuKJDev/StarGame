@@ -25,6 +25,9 @@ public class BaseScreen implements Screen, InputProcessor {
 
     private Vector2 touch;
 
+    protected boolean paused;
+
+
     @Override
     public boolean keyDown(int keycode) {
         System.out.println("keyDown keycode = " + keycode);
@@ -99,6 +102,7 @@ public class BaseScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         System.out.println("show");
+        Gdx.input.setInputProcessor(this);
         batch = new SpriteBatch();
         screenBounds = new Rect();
         worldBounds = new Rect();
@@ -106,17 +110,17 @@ public class BaseScreen implements Screen, InputProcessor {
         worldToGl = new Matrix4();
         screenToWorld = new Matrix3();
         touch = new Vector2();
-        Gdx.input.setInputProcessor(this);
 
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.3f, 0.1f, 0.3f, 1);
+        // ScreenUtils.clear(Color.rgba4444(0.11f, 0.03f, 0.18f, 1)); //Сей волшебный код не работает
+
+        Gdx.gl.glClearColor(0.11f, 0.03f, 0.18f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
-
 
     }
 
@@ -129,12 +133,12 @@ public class BaseScreen implements Screen, InputProcessor {
 
         float aspect = width / (float) height;
         worldBounds.setHeight(1f);
-        worldBounds.setWidth(1f * aspect);
+        worldBounds.setWidth(aspect);
 
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
-        MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
         batch.setProjectionMatrix(worldToGl);
         resize(worldBounds);
+        MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
 
     }
 
@@ -146,11 +150,13 @@ public class BaseScreen implements Screen, InputProcessor {
     @Override
     public void pause() {
         System.out.println("pause");
+        paused = true;
     }
 
     @Override
     public void resume() {
         System.out.println("resume");
+        paused = false;
 
     }
 

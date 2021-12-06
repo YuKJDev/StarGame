@@ -34,7 +34,6 @@ public class Sprite extends Rect {
     }
 
     public void draw(SpriteBatch batch) {
-
         batch.draw(
                 regions[frame],
                 getLeft(), getBottom(),
@@ -43,6 +42,7 @@ public class Sprite extends Rect {
                 scale, scale,
                 angle
         );
+
     }
 
     public void update(float delta) {
@@ -73,6 +73,9 @@ public class Sprite extends Rect {
         return scale;
     }
 
+    public float getAngle() {
+        return angle;
+    }
 
     public void destroy() {
         this.destroyed = true;

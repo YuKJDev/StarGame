@@ -7,12 +7,10 @@ import ru.gb.yukjdev.StarGameMain;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {
-        System.setProperty("user.name", "\\x79\\x75\\x72\\x79");
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        new LwjglApplication(new StarGameMain(), config);
         config.useGL30 = true;
-        config.height = 600;
-        config.width = 400;
+        config.height = 700;
+        config.width = 500;
         config.resizable = false;
         new LwjglApplication(new StarGameMain(), config);
     }
